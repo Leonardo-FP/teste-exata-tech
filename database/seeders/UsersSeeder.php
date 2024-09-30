@@ -16,22 +16,26 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        $password = Str::random(12);
+        $password_admin = Str::random(12);
 
         $admin = User::create([
             'name' => 'Super Admin',
             'email' => 'admin@exata.it',
-            'password' => Hash::make($password), 
+            'password' => Hash::make($password_admin), 
         ]);
         $admin->assignRole('superadmin');
 
-        $this->command->info("Usuário superadmin criado com a senha: $password");
+        $this->command->info("Usuário superadmin criado com a senha: $password_admin");
+
+        $password_user = Str::random(12);
 
         $user = User::create([
             'name' => 'Usuário Comum',
             'email' => 'user@exata.it',
-            'password' => Hash::make('12345678'), 
+            'password' => Hash::make($password_user), 
         ]);
         $user->assignRole('user');
+
+        $this->command->info("Usuário comum criado com a senha: $password_user");
     }
 }
